@@ -52,7 +52,7 @@ def construct_version_info():
                     'git_hash': git_hash, 'git_description': git_description,
                     'git_branch': git_branch}
     return version_info
-
+    print(version_info)
 
 version_info = construct_version_info()
 version = version_info['version']
