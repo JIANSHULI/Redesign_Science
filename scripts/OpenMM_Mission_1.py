@@ -2,7 +2,7 @@ from simtk.openmm.app import *
 from simtk.openmm import *
 from simtk.unit import *
 from sys import stdout
-from Redesign_Science.src import DATA_PATH
+from Redesign_Science import DATA_PATH
 import os
 
 try:
