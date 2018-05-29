@@ -1,4 +1,4 @@
-
+import os
 
 "Initial File for Redesign_Science."
 try:
@@ -9,9 +9,11 @@ except:
     
 try:
     # DATA_PATH = __path__[0] + '/../data'
-    DATA_PATH = os.path.dirname(os.path.realpath(__file__)) + '/data'
+    if 'src' in os.path.dirname(os.path.realpath(__file__)):
+        DATA_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../data'
+    else:
+        DATA_PATH = os.path.dirname(os.path.realpath(__file__)) + '/data'
 except:
     print('No DATA_PATH has been set.')
 # from __future__ import absolute_import
 # import ._omnical, ._Bulm, _boost_math
-

@@ -8,6 +8,7 @@ import json
 # from setuptools import setup
 from distutils.core import setup, Extension
 # import version
+import numpy as np
 
 
 ########## hera_dp_vs_mp version ###########
@@ -39,8 +40,17 @@ from src import version
 ########## pyuvdata version ##########
 data = [version.git_origin, version.git_hash, version.git_description, version.git_branch]
 with open(op.join('src', 'GIT_INFO'), 'w') as outfile:
+    try:
         json.dump(data, outfile)
+    except:
+        np.savetxt(outfile, data)
 with open(op.join('src', 'VERSION'), 'w') as outfile:
+    try:
         json.dump(__version__, outfile)
+    except:
+        np.savetxt(outfile, __version__)
 with open('VERSION', 'w') as outfile:
-    json.dump(__version__, outfile)
+    try:
+        json.dump(__version__, outfile)
+    except:
+        np.savetxt(outfile, __version__)

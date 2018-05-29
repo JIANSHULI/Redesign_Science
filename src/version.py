@@ -5,6 +5,8 @@ import json
 
 def construct_version_info():
     redesign_science_dir = os.path.dirname(os.path.realpath(__file__))
+    if 'src' in redesign_science_dir:
+        redesign_science_dir = redesign_science_dir[:-4]
     version_file = os.path.join(redesign_science_dir, 'VERSION')
     version = open(version_file).read().strip()
     print('redesign_science: %s'%redesign_science_dir)
@@ -12,9 +14,12 @@ def construct_version_info():
     print('version: %s'%version)
 
     try:
-        git_origin = subprocess.check_output(['git', '-C', redesign_science_dir, 'config',
-                                              '--get', 'remote.origin.url'],
-                                             stderr=subprocess.STDOUT).strip()
+        try:
+            git_origin = subprocess.check_output(['git', '-C', redesign_science_dir, 'config',
+                                                  '--get', 'remote.origin.url'],
+                                                 stderr=subprocess.STDOUT).strip()
+        except:
+            print('Exception: git_origin.')
         git_hash = subprocess.check_output(['git', '-C', redesign_science_dir, 'rev-parse', 'HEAD'],
                                            stderr=subprocess.STDOUT).strip()
         git_description = subprocess.check_output(['git', '-C', redesign_science_dir,
@@ -51,15 +56,16 @@ def construct_version_info():
     version_info = {'version': version, 'git_origin': git_origin,
                     'git_hash': git_hash, 'git_description': git_description,
                     'git_branch': git_branch}
-    return version_info
     print(version_info)
+    return version_info
+    
 
 version_info = construct_version_info()
 version = version_info['version']
-git_origin = version_info['git_origin']
-git_hash = version_info['git_hash']
-git_description = version_info['git_description']
-git_branch = version_info['git_branch']
+git_origin = str(version_info['git_origin'], 'utf-8')
+git_hash = str(version_info['git_hash'], 'utf-8')
+git_description = str(version_info['git_description'], 'utf-8')
+git_branch = str(version_info['git_branch'], 'utf-8')
 
 
 def main():
